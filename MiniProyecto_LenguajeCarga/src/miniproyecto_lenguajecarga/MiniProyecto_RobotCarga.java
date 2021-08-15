@@ -1,22 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package miniproyecto_lenguajecarga;
 
-/**
- *
- * @author Stephanie
- */
-public class MiniProyecto_RobotCarga extends javax.swing.JDialog {
 
-    /**
-     * Creates new form MiniProyecto_RobotCarga
-     */
-    public MiniProyecto_RobotCarga(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
+public class MiniProyecto_RobotCarga extends javax.swing.JFrame {
+
+
+    public MiniProyecto_RobotCarga() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -28,7 +19,7 @@ public class MiniProyecto_RobotCarga extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -55,7 +46,7 @@ public class MiniProyecto_RobotCarga extends javax.swing.JDialog {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
@@ -71,17 +62,10 @@ public class MiniProyecto_RobotCarga extends javax.swing.JDialog {
         }
         //</editor-fold>
 
-        /* Create and display the dialog */
+        /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                MiniProyecto_RobotCarga dialog = new MiniProyecto_RobotCarga(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
+                new MiniProyecto_RobotCarga().setVisible(true);
             }
         });
     }
