@@ -1,9 +1,18 @@
-
 package miniproyecto_lenguajecarga;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.util.ArrayList;
+import javax.swing.JFileChooser;
+import javax.swing.JTextArea;
 
 public class MiniProyecto_RobotCarga extends javax.swing.JFrame {
 
+    JFileChooser seleccionar = new JFileChooser();
+    File archivo;
+    FileInputStream entrada;
+    FileOutputStream salida;
 
     public MiniProyecto_RobotCarga() {
         initComponents();
@@ -19,21 +28,67 @@ public class MiniProyecto_RobotCarga extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane1 = new javax.swing.JScrollPane();
+        ta_mapa = new javax.swing.JTextArea();
+        jButton1 = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        ta_mapa.setColumns(20);
+        ta_mapa.setRows(5);
+        jScrollPane1.setViewportView(ta_mapa);
+
+        jButton1.setText("Abrir archivo");
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton1MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 492, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 131, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addGap(87, 87, 87))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 357, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1))
+                .addContainerGap(38, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+        if (seleccionar.showDialog(null, "Aceptar") == JFileChooser.APPROVE_OPTION) {
+            archivo = seleccionar.getSelectedFile();
+            AdmArchivo admArchivo = new AdmArchivo(archivo);
+            ArrayList mapa = admArchivo.mapa();
+            /*int fila = admArchivo.getFila();
+            int columna = admArchivo.getColumna();
+            ta_mapa = new JTextArea(fila,columna);*/
+            for (int i = 0; i < mapa.size(); i++) {
+                for (int j = 0; j < mapa.get(i).toString().length(); j++) {
+                    if (mapa.get(i).toString().charAt(j) == '-') {
+                        ta_mapa.append("[     ]  ");
+                    } else {
+                        ta_mapa.append("[  " + mapa.get(i).toString().charAt(j) + "  ]  ");
+                    }
+                }
+                ta_mapa.append("\n\n");
+            }
+        }
+    }//GEN-LAST:event_jButton1MouseClicked
 
     /**
      * @param args the command line arguments
@@ -71,5 +126,8 @@ public class MiniProyecto_RobotCarga extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextArea ta_mapa;
     // End of variables declaration//GEN-END:variables
 }
