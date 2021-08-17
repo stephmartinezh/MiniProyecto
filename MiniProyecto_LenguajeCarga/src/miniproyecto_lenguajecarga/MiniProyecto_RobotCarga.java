@@ -5,18 +5,22 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
 import javax.swing.JFileChooser;
+import javax.swing.JTextArea;
 
 public class MiniProyecto_RobotCarga extends javax.swing.JFrame {
 
     JFileChooser seleccionar = new JFileChooser();
     File archivo;
     FileInputStream entrada;
+    ArrayList resultado = new ArrayList();
     FileOutputStream salida;
-    
+    int cont = 1;
+
     public MiniProyecto_RobotCarga() {
         initComponents();
         this.setLocationRelativeTo(null);
         btnsig.setEnabled(false);
+        btnEmpezar.setEnabled(false);
     }
 
     /**
@@ -38,6 +42,7 @@ public class MiniProyecto_RobotCarga extends javax.swing.JFrame {
         jScrollPane3 = new javax.swing.JScrollPane();
         taMovimiento = new javax.swing.JTextArea();
         jLabel2 = new javax.swing.JLabel();
+        btnEmpezar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Robot de carga");
@@ -58,20 +63,37 @@ public class MiniProyecto_RobotCarga extends javax.swing.JFrame {
 
         btnsig.setFont(new java.awt.Font("Calibri Light", 0, 14)); // NOI18N
         btnsig.setText("Siguiente");
+        btnsig.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnsigMouseClicked(evt);
+            }
+        });
 
+        taBitacora.setEditable(false);
         taBitacora.setColumns(20);
+        taBitacora.setFont(new java.awt.Font("Calibri Light", 0, 14)); // NOI18N
         taBitacora.setRows(5);
         jScrollPane2.setViewportView(taBitacora);
 
         jLabel1.setFont(new java.awt.Font("Calibri Light", 1, 14)); // NOI18N
         jLabel1.setText("Bitácora");
 
+        taMovimiento.setEditable(false);
         taMovimiento.setColumns(20);
+        taMovimiento.setFont(new java.awt.Font("Calibri Light", 0, 14)); // NOI18N
         taMovimiento.setRows(5);
         jScrollPane3.setViewportView(taMovimiento);
 
         jLabel2.setFont(new java.awt.Font("Calibri Light", 1, 14)); // NOI18N
         jLabel2.setText("Movimiento siguiente");
+
+        btnEmpezar.setFont(new java.awt.Font("Calibri Light", 0, 14)); // NOI18N
+        btnEmpezar.setText("Empezar");
+        btnEmpezar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnEmpezarMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -80,23 +102,18 @@ public class MiniProyecto_RobotCarga extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 801, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(18, 18, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jLabel1)
+                    .addComponent(btnsig, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                            .addComponent(jLabel1)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnAbrir)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnsig, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane2))
-                        .addGap(26, 26, 26))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                            .addComponent(jLabel2)
-                            .addComponent(jScrollPane3))
-                        .addContainerGap())))
+                        .addComponent(btnAbrir)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnEmpezar))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2)
+                    .addComponent(jScrollPane3))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -106,15 +123,21 @@ public class MiniProyecto_RobotCarga extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnAbrir)
-                            .addComponent(btnsig))
-                        .addGap(63, 63, 63)
-                        .addComponent(jLabel1)
+                            .addComponent(btnEmpezar))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(52, 52, 52)
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnsig)
+                                .addGap(0, 0, Short.MAX_VALUE))))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 494, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(26, Short.MAX_VALUE))
         );
@@ -123,6 +146,9 @@ public class MiniProyecto_RobotCarga extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAbrirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAbrirMouseClicked
+        ta_mapa.setText("");
+        taMovimiento.setText("");
+        taBitacora.setText("");
         if (seleccionar.showDialog(null, "Aceptar") == JFileChooser.APPROVE_OPTION) {
             archivo = seleccionar.getSelectedFile();
             AdmArchivo admArchivo = new AdmArchivo(archivo);
@@ -141,9 +167,61 @@ public class MiniProyecto_RobotCarga extends javax.swing.JFrame {
             }
             Acciones acciones = new Acciones(admArchivo.getColumna(), admArchivo.getFila(), mapa);
             acciones.matriz();
-            btnsig.setEnabled(true);
+
+            String nombreArchivo = archivo.getName();
+            File archivoRespuesta = elegirArchivoRespuesta(nombreArchivo);
+            AdmArchivoSolucion admArchivoSolucion = new AdmArchivoSolucion(archivoRespuesta);
+            admArchivoSolucion.leerArchivo();
+            resultado = admArchivoSolucion.separar();
+
+            btnEmpezar.setEnabled(true);
         }
     }//GEN-LAST:event_btnAbrirMouseClicked
+
+    public File elegirArchivoRespuesta(String nombre) {
+        File archivoRespuesta = null;
+        switch (nombre) {
+            case "mapa_1.txt":
+                archivoRespuesta = new File("./Sol-mapa1.txt");
+                break;
+            case "mapa_2.txt":
+                archivoRespuesta = new File("./Sol-mapa2.txt");
+                break;
+            case "mapa_3.txt":
+                archivoRespuesta = new File("./Sol-mapa3.txt");
+                break;
+            case "mapa_4.txt":
+                archivoRespuesta = new File("./Sol-mapa4.txt");
+                break;
+            case "mapa_5.txt":
+                archivoRespuesta = new File("./Sol-mapa5.txt");
+                break;
+            default:
+                break;
+        }
+        return archivoRespuesta;
+    }
+
+    private void btnEmpezarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEmpezarMouseClicked
+        taMovimiento.append(resultado.get(0).toString());
+        taMovimiento.append("\n");
+        btnsig.setEnabled(true);
+        btnEmpezar.setEnabled(false);
+        btnAbrir.setEnabled(false);
+    }//GEN-LAST:event_btnEmpezarMouseClicked
+
+    private void btnsigMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnsigMouseClicked
+        if (cont < resultado.size()) {
+            taBitacora.append(resultado.get(cont - 1).toString());
+            taMovimiento.append(resultado.get(cont).toString());
+            taBitacora.append("\n");
+            taMovimiento.append("\n");
+            cont++;
+        } else {
+            btnsig.setEnabled(false);
+            btnAbrir.setEnabled(true);
+        }
+    }//GEN-LAST:event_btnsigMouseClicked
 
     /**
      * @param args the command line arguments
@@ -182,6 +260,7 @@ public class MiniProyecto_RobotCarga extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAbrir;
+    private javax.swing.JButton btnEmpezar;
     private javax.swing.JButton btnsig;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

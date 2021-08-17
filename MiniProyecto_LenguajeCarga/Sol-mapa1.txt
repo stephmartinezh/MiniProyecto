@@ -1,0 +1,10 @@
+#solucion_Mapa1
+01\avan\
+02\reciv\
+03\gira\
+04\gira\
+05\gira\
+06\avan\
+07\avan\
+08\gira\
+09\solta\
