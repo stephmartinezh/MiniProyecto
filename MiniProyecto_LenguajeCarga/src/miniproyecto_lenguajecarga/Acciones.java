@@ -269,29 +269,33 @@ public class Acciones {
     }
 
     //girar SOLO LA DERECHA
-    String girar(String[][] x, int posx, int posy) {
+    String[][] girar(String[][] x, int posx, int posy) {
         String robot = x[posx][posy];
         switch (robot) {
             case ">":
-                robot = "v";
+                x[posx][posy] = "v";
+                //robot = "v";
                 break;
 
             case "<":
-                robot = "^";
+                //robot = "^";
+                x[posx][posy] = "^";
                 break;
 
             case "v":
-                robot = "<";
+                //robot = "<";
+                x[posx][posy] = "<";
                 break;
 
             case "^":
-                robot = ">";
+                //robot = ">";
+                x[posx][posy] = ">";
                 break;
         }
-        return robot;
+        return x;
     }
     //recibir
-    void recibir(String[][] x, int posx, int posy, int direc) {
+    String[][] recibir(String[][] x, int posx, int posy, int direc) {
         switch (direc) {
             case 4:
                 if (x[posx - 1][posy].equals("O")) {
@@ -317,33 +321,35 @@ public class Acciones {
                 }
                 break;
         }
+        return x;
     }
     //soltar
-    void soltar(String[][] x, int posx, int posy, int direc) {
+    String[][] soltar(String[][] x, int posx, int posy, int direc) {
         switch (direc) {
             case 4:
                 if (x[posx - 1][posy].equals("D")) {
-                    x[posx - 1][posy]="-";
+                    x[posx - 1][posy]="O";
                 }
                 break;
 
             case 8:
                 if (x[posx][posy - 1].equals("D")) {
-                    x[posx][posy - 1]="-";
+                    x[posx][posy - 1]="O";
                 }
                 break;
 
             case 6:
                 if ( x[posx + 1][posy].equals("D")) {
-                    x[posx + 1][posy]="-";
+                    x[posx + 1][posy]="O";
                 }
                 break;
 
             case 2:
                 if (x[posx][posy + 1].equals("D")) {
-                    x[posx][posy + 1]="-";
+                    x[posx][posy + 1]="O";
                 }
                 break;
         }
+        return x;
     }
 }

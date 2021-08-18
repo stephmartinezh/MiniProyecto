@@ -5,7 +5,6 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
 import javax.swing.JFileChooser;
-import javax.swing.JTextArea;
 
 public class MiniProyecto_RobotCarga extends javax.swing.JFrame {
 
@@ -14,7 +13,9 @@ public class MiniProyecto_RobotCarga extends javax.swing.JFrame {
     FileInputStream entrada;
     ArrayList resultado = new ArrayList();
     FileOutputStream salida;
-    int cont = 1;
+    Acciones acciones;
+    String[][] matrizMapa;
+    int fila, columna, cont = 1, cont2 = 0;
 
     public MiniProyecto_RobotCarga() {
         initComponents();
@@ -153,19 +154,12 @@ public class MiniProyecto_RobotCarga extends javax.swing.JFrame {
             archivo = seleccionar.getSelectedFile();
             AdmArchivo admArchivo = new AdmArchivo(archivo);
             ArrayList mapa = admArchivo.getCadenaMapa();
-            String[][] matrizMapa = admArchivo.mapa();
-            for (int i = 0; i < admArchivo.getColumna(); i++) {
-                for (int j = 0; j < admArchivo.getFila(); j++) {
-                    if (matrizMapa[i][j].equals("-")) {
-                        ta_mapa.append("  [     ]  ");
-                    } else {
-                        ta_mapa.append("  [  " + matrizMapa[i][j] + "   ]  ");
-                    }
+            matrizMapa = admArchivo.mapa();
+            columna = admArchivo.getColumna();
+            fila = admArchivo.getFila();
+            llenarTextArea();
 
-                }
-                ta_mapa.append("\n\n");
-            }
-            Acciones acciones = new Acciones(admArchivo.getColumna(), admArchivo.getFila(), mapa);
+            acciones = new Acciones(admArchivo.getColumna(), admArchivo.getFila(), mapa);
             acciones.matriz();
 
             String nombreArchivo = archivo.getName();
@@ -210,6 +204,20 @@ public class MiniProyecto_RobotCarga extends javax.swing.JFrame {
         btnAbrir.setEnabled(false);
     }//GEN-LAST:event_btnEmpezarMouseClicked
 
+    public void llenarTextArea() {
+        for (int i = 0; i < columna; i++) {
+            for (int j = 0; j < fila; j++) {
+                if (matrizMapa[i][j].equals("-")) {
+                    ta_mapa.append("  [     ]  ");
+                } else {
+                    ta_mapa.append("  [  " + matrizMapa[i][j] + "   ]  ");
+                }
+
+            }
+            ta_mapa.append("\n\n");
+        }
+    }
+
     private void btnsigMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnsigMouseClicked
         if (cont < resultado.size()) {
             taBitacora.append(resultado.get(cont - 1).toString());
@@ -217,6 +225,32 @@ public class MiniProyecto_RobotCarga extends javax.swing.JFrame {
             taBitacora.append("\n");
             taMovimiento.append("\n");
             cont++;
+
+            acciones.matriz();
+            int posx, posy, direccion;
+            posx = acciones.posX(matrizMapa);
+            posy = acciones.posY(matrizMapa);
+            switch (resultado.get(cont2).toString()) {
+                case "avan":
+
+                    break;
+                case "gira":
+                    matrizMapa = acciones.girar(matrizMapa, posx, posy);
+                    break;
+                case "recv":
+                    direccion = acciones.direccion(matrizMapa);
+                    matrizMapa = acciones.recibir(matrizMapa, posx, posy, direccion);
+                    break;
+                case "solta":
+                    direccion = acciones.direccion(matrizMapa);
+                    matrizMapa = acciones.soltar(matrizMapa, posx, posy, direccion);
+                    break;
+                default:
+                    break;
+            }
+            cont2++;
+            ta_mapa.setText("");
+            llenarTextArea();
         } else {
             btnsig.setEnabled(false);
             btnAbrir.setEnabled(true);
