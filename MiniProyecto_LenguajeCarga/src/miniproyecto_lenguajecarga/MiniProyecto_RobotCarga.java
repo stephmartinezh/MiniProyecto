@@ -16,6 +16,7 @@ public class MiniProyecto_RobotCarga extends javax.swing.JFrame {
     Acciones acciones;
     String[][] matrizMapa;
     int fila, columna, cont = 1, cont2 = 0;
+    ArrayList posiciones = new ArrayList();
 
     public MiniProyecto_RobotCarga() {
         initComponents();
@@ -227,17 +228,22 @@ public class MiniProyecto_RobotCarga extends javax.swing.JFrame {
             cont++;
 
             acciones.matriz();
+            String pos = "";
             int posx, posy, direccion;
             posx = acciones.posX(matrizMapa);
             posy = acciones.posY(matrizMapa);
+            pos = posx + "," + posy;
+            posiciones.add(pos);
+            pos = "";
             switch (resultado.get(cont2).toString()) {
                 case "avan":
-
+                    direccion = acciones.direccion(matrizMapa);
+                    matrizMapa = acciones.avanzar(matrizMapa, posx, posy, direccion);
                     break;
                 case "gira":
                     matrizMapa = acciones.girar(matrizMapa, posx, posy);
                     break;
-                case "recv":
+                case "reciv":
                     direccion = acciones.direccion(matrizMapa);
                     matrizMapa = acciones.recibir(matrizMapa, posx, posy, direccion);
                     break;

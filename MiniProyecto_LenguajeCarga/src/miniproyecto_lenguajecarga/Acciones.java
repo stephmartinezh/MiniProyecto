@@ -6,7 +6,6 @@ public class Acciones {
 
     int fila, columna;
     ArrayList mapa = new ArrayList();
-    ArrayList posiciones = new ArrayList();
 
     public Acciones() {
     }
@@ -24,31 +23,16 @@ public class Acciones {
         for (int i = 0; i < mapa.size(); i++) {
             cadenat += mapa.get(i);
         }
-//        System.out.println(cadenat);
 
         for (int i = 0; i < fila; i++) {
             for (int j = 0; j < columna; j++) {
-//                System.out.println("L: " + cadenat.charAt(cont));
                 temp[i][j] = String.valueOf(cadenat.charAt(cont));
                 cont++;
             }
         }
-
-        /*for (int i = 0; i < fila; i++) {
-            for (int j = 0; j < columna; j++) {
-                System.out.print("[" + temp[i][j] + "]");
-            }
-            System.out.println("");
-        }*/
-//        direccion(temp);
-//        posX(temp);
-//        posY(temp);
-//        posXO(temp);
-//        posYO(temp);
-//        posXD(temp);
-//        posYD(temp);
         return temp;
     }
+//posicion x del robot
 
     int posX(String[][] x) {
         int posx = 0;
@@ -60,10 +44,10 @@ public class Acciones {
                 }
             }
         }
-//        System.out.println(posx);
         return posx;
     }
 
+    //posicion y del robot
     int posY(String[][] x) {
         int posy = 0;
         for (int i = 0; i < fila; i++) {
@@ -74,9 +58,9 @@ public class Acciones {
                 }
             }
         }
-//        System.out.println(posy);
         return posy;
     }
+//direccion del robot
 
     int direccion(String[][] x) {
         //8 arriba
@@ -101,10 +85,10 @@ public class Acciones {
                 }
             }
         }
-//        System.out.println("Direccion: " + posy);
         return posy;
     }
 
+    //posicion x del objeto
     int posXO(String[][] x) {
         int posx = 0;
         for (int i = 0; i < fila; i++) {
@@ -115,10 +99,10 @@ public class Acciones {
                 }
             }
         }
-//        System.out.println("x: "+posx);
         return posx;
     }
 
+    //posicion y del objeto
     int posYO(String[][] x) {
         int posy = 0;
         for (int i = 0; i < fila; i++) {
@@ -129,10 +113,10 @@ public class Acciones {
                 }
             }
         }
-//        System.out.println("Y: "+posy);
         return posy;
     }
 
+    //posicion x del destino
     int posXD(String[][] x) {
         int posx = 0;
         for (int i = 0; i < fila; i++) {
@@ -143,10 +127,10 @@ public class Acciones {
                 }
             }
         }
-//        System.out.println(posx);
         return posx;
     }
 
+    //posicion y del destino
     int posYD(String[][] x) {
         int posy = 0;
         for (int i = 0; i < fila; i++) {
@@ -157,38 +141,65 @@ public class Acciones {
                 }
             }
         }
-//        System.out.println(posy);
         return posy;
     }
 
     //avanzar
-    void avanzar(String[][] x, int posx, int posy, int direc) {
+    String[][] avanzar(String[][] x, int posx, int posy, int direc) {
+        //8 arriba
+        //2 abajo
+        //4 izquierda
+        //6 derecha
+        switch (direc) {
+            case 4:
+                x[posx][posy] = "-";
+                x[posx][posy - 1] = "<";
+                break;
 
+            case 8:
+                x[posx][posy] = "-";
+                x[posx - 1][posy] = "^";
+                break;
+
+            case 6:
+                x[posx][posy] = "-";
+                x[posx][posy + 1] = ">";
+                break;
+
+            case 2:
+                x[posx][posy] = "-";
+                x[posx + 1][posy] = "v";
+                break;
+
+            default:
+                break;
+        }
+        return x;
     }
 
     boolean obstaculo(String[][] x, int posx, int posy, int direc) {
         boolean resp = true;
         switch (direc) {
             case 4:
-                if (posx - 1 == -1 || x[posx - 1][posy].equals("X") || x[posx - 1][posy].equals("O") || x[posx - 1][posy].equals("D")) {
-                    resp = false;
-                }
-                break;
-
-            case 8:
                 if (posy - 1 == -1 || x[posx][posy - 1].equals("X") || x[posx][posy - 1].equals("O") || x[posx][posy - 1].equals("D")) {
                     resp = false;
                 }
                 break;
 
+            case 8:
+                if (posx - 1 == -1 || x[posx - 1][posy].equals("X") || x[posx - 1][posy].equals("O") || x[posx - 1][posy].equals("D")) {
+                    resp = false;
+                }
+                break;
+
             case 6:
-                if (posx + 1 == columna || x[posx + 1][posy].equals("X") || x[posx + 1][posy].equals("O") || x[posx + 1][posy].equals("D")) {
+                if (posy + 1 == columna || x[posx][posy + 1].equals("X") || x[posx][posy + 1].equals("O") || x[posx][posy + 1].equals("D")) {
                     resp = false;
                 }
                 break;
 
             case 2:
-                if (posy + 1 == fila || x[posx][posy + 1].equals("X") || x[posx][posy + 1].equals("O") || x[posx][posy + 1].equals("D")) {
+                if (posx + 1 == fila || x[posx + 1][posy].equals("X") || x[posx + 1][posy].equals("O") || x[posx + 1][posy].equals("D")) {
                     resp = false;
                 }
                 break;
@@ -199,30 +210,30 @@ public class Acciones {
         }
         return resp;
     }
-    
+
     boolean objetivo(String[][] x, int posx, int posy, int direc) {
         boolean resp = true;
         switch (direc) {
             case 4:
-                if (x[posx - 1][posy].equals("O")) {
-                    resp = true;
-                }
-                break;
-
-            case 8:
                 if (x[posx][posy - 1].equals("O")) {
                     resp = true;
                 }
                 break;
 
+            case 8:
+                if (x[posx - 1][posy].equals("O")) {
+                    resp = true;
+                }
+                break;
+
             case 6:
-                if ( x[posx + 1][posy].equals("O")) {
+                if (x[posx][posy + 1].equals("O")) {
                     resp = true;
                 }
                 break;
 
             case 2:
-                if (x[posx][posy + 1].equals("O")) {
+                if (x[posx + 1][posy].equals("O")) {
                     resp = true;
                 }
                 break;
@@ -233,30 +244,30 @@ public class Acciones {
         }
         return resp;
     }
-    
+
     boolean destino(String[][] x, int posx, int posy, int direc) {
         boolean resp = true;
         switch (direc) {
             case 4:
-                if (x[posx - 1][posy].equals("D")) {
-                    resp = true;
-                }
-                break;
-
-            case 8:
                 if (x[posx][posy - 1].equals("D")) {
                     resp = true;
                 }
                 break;
 
+            case 8:
+                if (x[posx - 1][posy].equals("D")) {
+                    resp = true;
+                }
+                break;
+
             case 6:
-                if ( x[posx + 1][posy].equals("D")) {
+                if (x[posx][posy + 1].equals("D")) {
                     resp = true;
                 }
                 break;
 
             case 2:
-                if (x[posx][posy + 1].equals("D")) {
+                if (x[posx + 1][posy].equals("D")) {
                     resp = true;
                 }
                 break;
@@ -294,60 +305,46 @@ public class Acciones {
         }
         return x;
     }
+
     //recibir
     String[][] recibir(String[][] x, int posx, int posy, int direc) {
         switch (direc) {
             case 4:
-                if (x[posx - 1][posy].equals("O")) {
-                    x[posx - 1][posy]="-";
-                }
+                x[posx][posy - 1] = "-";
                 break;
 
             case 8:
-                if (x[posx][posy - 1].equals("O")) {
-                    x[posx][posy - 1]="-";
-                }
+                x[posx - 1][posy] = "-";
                 break;
 
             case 6:
-                if ( x[posx + 1][posy].equals("O")) {
-                    x[posx + 1][posy]="-";
-                }
+                x[posx][posy + 1] = "-";
                 break;
 
             case 2:
-                if (x[posx][posy + 1].equals("O")) {
-                    x[posx][posy + 1]="-";
-                }
+                x[posx + 1][posy] = "-";
                 break;
         }
         return x;
     }
+
     //soltar
     String[][] soltar(String[][] x, int posx, int posy, int direc) {
         switch (direc) {
             case 4:
-                if (x[posx - 1][posy].equals("D")) {
-                    x[posx - 1][posy]="O";
-                }
+                x[posx][posy - 1] = "T";
                 break;
 
             case 8:
-                if (x[posx][posy - 1].equals("D")) {
-                    x[posx][posy - 1]="O";
-                }
+                x[posx - 1][posy] = "T";
                 break;
 
             case 6:
-                if ( x[posx + 1][posy].equals("D")) {
-                    x[posx + 1][posy]="O";
-                }
+                x[posx][posy + 1] = "T";
                 break;
 
             case 2:
-                if (x[posx][posy + 1].equals("D")) {
-                    x[posx][posy + 1]="O";
-                }
+                x[posx + 1][posy] = "T";
                 break;
         }
         return x;

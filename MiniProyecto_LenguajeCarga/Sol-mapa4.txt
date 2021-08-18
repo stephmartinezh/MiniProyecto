@@ -22,7 +22,6 @@
 22\avan\
 23\avan\
 24\avan\
-25\avan\
 26\gira\
 27\gira\
 28\gira\
@@ -41,7 +40,7 @@
 41\gira\
 42\gira\
 43\gira\
-44\recv\
+44\reciv\
 45\gira\
 46\gira\
 47\gira\
@@ -144,10 +143,9 @@
 144\avan\
 145\avan\
 146\avan\
-147\recv\
+147\reciv\
 148\gira\
 149\gira\
-150\gira\
 151\avan\
 152\avan\
 153\avan\
@@ -240,7 +238,7 @@
 240\avan\
 241\avan\
 243\avan\
-244\recv\
+244\reciv\
 245\gira\
 246\gira\
 247\avan\
@@ -339,7 +337,7 @@
 341\gira\
 342\avan\
 343\gira\
-344\recv\
+344\reciv\
 345\gira\
 346\avan\
 347\gira\
@@ -389,3 +387,4 @@
 392\gira\
 393\gira\
 394\solta\
+395\solta\

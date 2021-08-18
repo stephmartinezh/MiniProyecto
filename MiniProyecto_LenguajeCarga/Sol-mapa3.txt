@@ -61,7 +61,7 @@
 61\avan\
 62\avan\
 63\avan\
-64\recv\
+64\reciv\
 65\gira\
 66\gira\
 67\avan\
@@ -122,7 +122,7 @@
 122\avan\
 123\avan\
 124\avan\
-125\recv\
+125\reciv\
 126\gira\
 127\gira\
 128\avan\
@@ -148,7 +148,6 @@
 148\gira\
 149\avan\
 150\avan\
-151\avan\
 152\gira\
 153\avan\
 154\avan\
@@ -158,3 +157,4 @@
 158\gira\
 159\gira\
 160\solta\
+161\solta\

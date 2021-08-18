@@ -7,8 +7,6 @@
 06\avan\
 07\avan\
 08\gira\
-09\gira\
-10\gira\
 11\avan\
 12\avan\
 13\gira\
@@ -34,4 +32,6 @@
 33\avan\
 34\avan\
 35\avan\
-36\solta\
+36\avan\
+37\solta\
+38\solta\

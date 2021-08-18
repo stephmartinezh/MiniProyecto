@@ -8,3 +8,4 @@
 07\avan\
 08\gira\
 09\solta\
+10\solta\
